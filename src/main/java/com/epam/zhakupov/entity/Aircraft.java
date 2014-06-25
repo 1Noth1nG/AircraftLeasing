@@ -3,65 +3,24 @@ package com.epam.zhakupov.entity;
 import java.math.BigDecimal;
 import java.util.Random;
 
-public  class Aircraft {
-    private String PlaneName;
-    private String SerialNumber;
-    private String PlaneType;
-    private BigDecimal CargoPayLoad;
-    private double FuelTankVolume;
-    private double FlightRange;
-    private BigDecimal Cost;
+public class Aircraft {
+    private String planeName;
+    private String serialNumber;
+    private String planeType;
+    private BigDecimal cargoPayLoad;
+    private double fuelTankVolume;
+    private double flightRange;
+    private BigDecimal cost;
 
     public Aircraft(AircraftBuilder Builder) {
-        PlaneName = Builder.PlaneName;
-        SerialNumber = Builder.SerialNumber;
-        PlaneType = Builder.PlaneType;
-        CargoPayLoad = Builder.CargoPayLoad;
-        FuelTankVolume = Builder.FuelTankVolume;
-        FlightRange = Builder.FlightRange;
-        Cost = Builder.Cost;
+        planeName = Builder.planeName;
+        serialNumber = Builder.serialNumber;
+        planeType = Builder.PlaneType;
+        cargoPayLoad = Builder.CargoPayLoad;
+        fuelTankVolume = Builder.FuelTankVolume;
+        flightRange = Builder.FlightRange;
+        cost = Builder.Cost;
     }
-public static class AircraftBuilder{
-    private String PlaneName=null;
-    private String SerialNumber=null;
-    private String PlaneType=null;
-    private BigDecimal CargoPayLoad=BigDecimal.ZERO;
-    private double FuelTankVolume=0;
-    private double FlightRange=0;
-    private BigDecimal Cost=BigDecimal.ZERO;
-    public AircraftBuilder PlaneName(String val){
-        PlaneName=val;
-        return this;
-    }
-    public AircraftBuilder SerialNumber(String val){
-        SerialNumber=val;
-        return this;
-    }
-    public AircraftBuilder PlaneType(String val){
-        PlaneType=val;
-        return this;
-    }
-    public AircraftBuilder CargoPayLoad(BigDecimal val){
-        CargoPayLoad=val;
-        return this;
-    }
-    public AircraftBuilder FuelTankVolume(double val){
-        FuelTankVolume=val;
-        return this;
-    }
-    public AircraftBuilder FlightRange(double val){
-        FlightRange=val;
-        return this;
-    }
-    public AircraftBuilder Cost(BigDecimal val){
-        Cost=val;
-        return this;
-    }
-    public Aircraft builder(){
-        return new Aircraft(this);
-    }
-}
-
 
     public static String RandomBIN(int x) {
         int[] a = new int[x];
@@ -72,26 +31,78 @@ public static class AircraftBuilder{
         return sb.toString();
     }
 
+    public String getPlaneName() {
+        return planeName;
+    }
 
     @Override
     public String toString() {
         return "Aircraft{" +
-                "PlaneName='" + PlaneName + '\'' +
-                ", SerialNumber='" + SerialNumber + '\'' +
-                ", PlaneType='" + PlaneType + '\'' +
-                ", CargoPayLoad=" + CargoPayLoad +"tons"+
-                ", FuelTankVolume=" + FuelTankVolume +"tons"+
-                ", FlightRange=" + FlightRange +"km"+
-                ", Cost=" + Cost +"$"+
+                "Plane Name='" + planeName + '\'' +
+                ", Serial Number='" + serialNumber + '\'' +
+                ", Plane Type='" + planeType + '\'' +
+                ", Cargo Pay Load=" + cargoPayLoad + "tons" +
+                ", Fuel Tank Volume=" + fuelTankVolume + "tons" +
+                ", Flight Range=" + flightRange + "km" +
+                ", Cost=" + cost + "$" +
                 '}' + "\n";
     }
 
     public BigDecimal getCost() {
-        return Cost;
+        return cost;
     }
 
     public BigDecimal getCargoPayLoad() {
-        return CargoPayLoad;
+        return cargoPayLoad;
+    }
+
+    public static class AircraftBuilder {
+        private String planeName = null;
+        private String serialNumber = null;
+        private String PlaneType = null;
+        private BigDecimal CargoPayLoad = BigDecimal.ZERO;
+        private double FuelTankVolume = 0;
+        private double FlightRange = 0;
+        private BigDecimal Cost = BigDecimal.ZERO;
+
+        public AircraftBuilder PlaneName(String val) {
+            planeName = val;
+            return this;
+        }
+
+        public AircraftBuilder SerialNumber(String val) {
+            serialNumber = val;
+            return this;
+        }
+
+        public AircraftBuilder PlaneType(String val) {
+            PlaneType = val;
+            return this;
+        }
+
+        public AircraftBuilder CargoPayLoad(BigDecimal val) {
+            CargoPayLoad = val;
+            return this;
+        }
+
+        public AircraftBuilder FuelTankVolume(double val) {
+            FuelTankVolume = val;
+            return this;
+        }
+
+        public AircraftBuilder FlightRange(double val) {
+            FlightRange = val;
+            return this;
+        }
+
+        public AircraftBuilder Cost(BigDecimal val) {
+            Cost = val;
+            return this;
+        }
+
+        public Aircraft builder() {
+            return new Aircraft(this);
+        }
     }
 }
 

@@ -1,56 +1,63 @@
 package com.epam.zhakupov.entity;
 
+import com.epam.zhakupov.util.AlphabetComporator;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 
-enum typeofOwnship{State,Private}
+
 public class Client {
+    private ArrayList<Aircraft> leasingPlanes = new ArrayList<Aircraft>();
     private String name;
-    private typeofOwnship TypeofOwnship;
-    private String BussinessIdentifyNumber;
-    private String Adress;
-    private String BankAccountNumber;
-    private String Bank;
-    private List<Aircraft> planes = new ArrayList<Aircraft>();
+    private Aircompany.typeofOwnship typeofOwnship;
+    private String bussinessIdentifyNumber;
+    private String address;
+    private String bankAccountNumber;
+    private String bank;
 
-    public Client(String name, typeofOwnship typeofOwnship, String bussinessIdentifyNumber, String adress, String bankAccountNumber, String bank) {
+    public Client(String name, Aircompany.typeofOwnship typeofOwnship, String address, String bussinessIdentifyNumber, String bankAccountNumber, String bank) {
         this.name = name;
-        TypeofOwnship = typeofOwnship;
-        BussinessIdentifyNumber = bussinessIdentifyNumber;
-        Adress = adress;
-        BankAccountNumber = bankAccountNumber;
-        Bank = bank;
-    }
-    public void add(Aircraft plane) {
-        planes.add(plane);
-
-    }
-    public BigDecimal getAllCargoPayLoad() {
-        BigDecimal summ = BigDecimal.ZERO;
-        for (Aircraft f : planes) {
-            summ = summ.add(f.getCargoPayLoad());
-        }
-        return summ;
+        this.typeofOwnship = typeofOwnship;
+        this.address = address;
+        this.bussinessIdentifyNumber = bussinessIdentifyNumber;
+        this.bankAccountNumber = bankAccountNumber;
+        this.bank = bank;
     }
 
     @Override
     public String toString() {
         return "Client{" +
-                "name='" + name + '\'' +
-                ", TypeofOwnship=" + TypeofOwnship +
-                ", BussinessIdentifyNumber='" + BussinessIdentifyNumber + '\'' +
-                ", Adress='" + Adress + '\'' +
-                ", BankAccountNumber='" + BankAccountNumber + '\'' +
-                ", Bank='" + Bank + '\'' +
-                ",\n Planes:\n" + planes +
+                ", name='" + name + '\'' +
+                ", typeofOwnship=" + typeofOwnship +
+                ", bussinessIdentifyNumber='" + bussinessIdentifyNumber + '\'' +
+                ", address='" + address + '\'' +
+                ", bankAccountNumber='" + bankAccountNumber + '\'' +
+                ", bank='" + bank + '\'' +
+                "\nleasingPlanes=" + leasingPlanes +
                 '}';
     }
 
-    public BigDecimal getAllCost(){
-        BigDecimal summ=BigDecimal.ZERO;
-        for (Aircraft o :planes ) {
-            summ=summ.add(o.getCost());
-        }return summ;
+    public void addPlane(Aircraft plane) {
+        leasingPlanes.add(plane);
+        Collections.sort(leasingPlanes, new AlphabetComporator());
     }
+
+    public BigDecimal getTotallCost() {
+        BigDecimal summ = BigDecimal.ZERO;
+        for (Aircraft o : leasingPlanes) {
+            summ = summ.add(o.getCost());
+        }
+        return summ;
+    }
+
+    public BigDecimal getTotallCargoPayLoad() {
+        BigDecimal summ = BigDecimal.ZERO;
+        for (Aircraft f : leasingPlanes) {
+            summ = summ.add(f.getCargoPayLoad());
+        }
+        return summ;
+    }
+
+
 }

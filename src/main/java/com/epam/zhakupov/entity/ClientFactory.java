@@ -1,16 +1,26 @@
 package com.epam.zhakupov.entity;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class ClientFactory {
-    public static Client createClient(String bussinessIdentifyNumber,String bankAccountNumber){
-        Client client= new Client("KazAgro",typeofOwnship.State,bussinessIdentifyNumber,"Astana Imanov street 43",bankAccountNumber,"Tsesnabank");
-        int x=new Random().nextInt(10);
-        for (int i = 0; i < x; i++) {
 
-           Aircraft plane=PlaneFactory.createRandomPlane();
-            client.add(plane);
 
+    public static Client createClient(String bussinessIdentifyNumber, String bankAccountNumber) {
+        Client client = new Client("Aeroflot"
+                , Aircompany.typeofOwnship.Private
+                , "Moscow,South Butovo,PUshkina 25"
+                , bussinessIdentifyNumber
+                , bankAccountNumber
+                , "Sberbank");
+        ArrayList<Aircraft> copy = new ArrayList<Aircraft>(Aircompany.getPlanes());
+        int x = new Random().nextInt(copy.size()) + 1;
+        for (int i = 0; i <= x; x--) {
+            Random rand = new Random();
+            Aircraft plane = copy.get(rand.nextInt(copy.size()));
+            client.addPlane(plane);
+            copy.remove(plane);
         }
-        return client; }
+        return client;
+    }
 }
